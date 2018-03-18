@@ -5,7 +5,7 @@
             "name": "Launch localhost",
             "type": "chrome",
             "request": "launch",
-            "url": "http://localhost/paper/",
+            "url": "http://127.0.0.1/paper/",
             "webRoot": "${workspaceFolder}"
         },
         {

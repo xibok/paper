@@ -13,13 +13,60 @@
     <script src="js/popper.min.js"></script>
 
     <title>酒店管理系统</title>
-
     <style type="text/css">
-
    </style>
+
+   <script type="text/javascript"> 
+    var use = getCookie("use");
+    var qx = getCookie("qx");
+    if(use !=null && qx !=null ){
+        
+    } else{
+        window.location.href="html/login.html";
+    }
+
+    function ajaxfun(value1,value2){
+        $.ajax({
+            type:"POST",
+            url:""
+
+        });
+    }
+   </script>
 </head>
 <body>
+<div class="index">
+     <div class="container" style="margin-top: 30px">
+        <div class="row">
+            <div class="col-xs-3">
+                <ul class="nav nav-pills nav-stacked" id="Navigation">
+                    <li role="presentation" class="active"><a>购房系统</a></li>
 
+                </ul>
+            </div>
+
+            <div class="col-md-9">
+                <ul class="list-group">
+                    <a class="list-group-item active"> 我的帖子 </a>
+                    <div class="list-group-item">
+                        <a   style="color:rgb(128, 128, 128)">
+                            <h4 class="list-group-item-heading" style="color:black">
+                                主论坛标题</h4>帖子标题
+                        </a> <a   style="float: right">编辑</a> 
+                        <a   style="float: right">申请精华贴&nbsp;</a>
+                        <p style="float: right;margin-right: 50px">
+                            浏览量:&nbsp;评论量:&nbsp;发表日期:</p>
+                    </div>
+                </ul>
+                </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
 
 
 </body>

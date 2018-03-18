@@ -20,9 +20,6 @@ if($row>0){
     setcookie("qx", '"'.$row["qx"].'"', time()+14400);
 }
 
-
-// if(){
-//     echo $result;
-// }
+mysql_close($con);
 
 ?>

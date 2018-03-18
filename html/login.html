@@ -57,7 +57,10 @@
           
         },
         success:function(data){
-            console.log(data.error);
+            // console.log(data.error);
+          if(data.error == "0" && data.errortype =="Login Success"){
+            window.location.href="html/login.html";
+          }
             
         },
       });

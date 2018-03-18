@@ -1,9 +1,6 @@
-.indexheadcell{
-   width: 30%;
-}
-.headcell{
-    font-size: 13px;
-}
-.col{
-    text-align: center;
+body{
+    width: 100%;
+    height: 100%;
+    background: url("../image/index.png");
+    background-position-x: 50%;
 }
