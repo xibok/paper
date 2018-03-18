@@ -9,29 +9,10 @@
     <link href="css/bootstrapcss/bootstrap.min.css" rel="stylesheet">
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/angular.min.js"></script>
     <script src="js/popper.min.js"></script>
-
     <title>酒店管理系统</title>
-    <style type="text/css">
-   </style>
-
-   <script type="text/javascript"> 
-    var use = getCookie("use");
-    var qx = getCookie("qx");
-    if(use !=null && qx !=null ){
-        
-    } else{
-        window.location.href="html/login.html";
-    }
-
-    function ajaxfun(value1,value2){
-        $.ajax({
-            type:"POST",
-            url:""
-
-        });
-    }
+    <style type="text/css"></style>
+   <script type="text/javascript">
    </script>
 </head>
 <body>
@@ -39,15 +20,15 @@
      <div class="container" style="margin-top: 30px">
         <div class="row">
             <div class="col-xs-3">
-                <ul class="nav nav-pills nav-stacked" id="Navigation">
-                    <li role="presentation" class="active"><a>购房系统</a></li>
-
+                <ul class="nav nav-pills nav-stacked " id="Navigation">
+                   <!-- 左列类容 -->
                 </ul>
             </div>
 
             <div class="col-md-9">
-                <ul class="list-group">
-                    <a class="list-group-item active"> 我的帖子 </a>
+                <ul class="list-group" id="Class-Capacity">
+                    <span class="list-group-item active" id="listTitle">我的帖子</span>
+                    
                     <div class="list-group-item">
                         <a   style="color:rgb(128, 128, 128)">
                             <h4 class="list-group-item-heading" style="color:black">
@@ -61,13 +42,93 @@
                 </div>
         </div>
     </div>
-
-
-
-
-
 </div>
-
-
 </body>
+
+<script type="text/javascript"> 
+var dataListlength;
+//js储存cookie方法
+function setCookie(cname,cvalue,exdays){
+    var d = new Date();
+    d.setTime(d.getTime()+(exdays*24*60*60*1000));
+    var expires = "expires="+d.toGMTString();
+    document.cookie = cname+"="+cvalue+"; "+expires;
+}
+//js读取cookie方法
+function getCookie(cname){
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i].trim();
+        if (c.indexOf(name)==0) { return c.substring(name.length,c.length); }
+    }
+    return "";
+}
+//ajax判断id与权限是否匹配
+function ajaxfun(value1,value2){
+    $.ajax({
+        type:"POST",
+        url:"php/query.php",
+        data:{
+            value1,value2
+        },
+        dataType:"json",
+        error:function(){
+
+        },
+        success:function(data){
+
+            var LeftList = "";
+ 
+            if(data.error == "0" && data.errortype =="Success"){
+  
+            dataListlength = data.List.length;
+                for (let i = 0; i < data.List.length; i++) {
+                    LeftList = LeftList+'<li role="presentation" onclick="listClick(this)" id="list'+i+'" class=""><a>'+data.List[i].list+'</a></li>'
+
+                    }
+                    document.getElementById("Navigation").innerHTML = LeftList;
+                     }else{
+                        // window.location.href="html/login.html";
+                     }  
+        },
+    });
+}
+    //左列点击
+    function listClick(id) {
+        for (let i = 0; i < dataListlength; i++) {
+            document.getElementById("list"+i).setAttribute("class","");            
+        }
+        id.setAttribute("class","active");
+        document.getElementById("listTitle").innerText = id.innerText;
+        listvalue = id.id;
+        $.ajax({
+            type:"POST",
+            url:"php/listvalue.php",
+            data:listvalue,
+            dataType:"json",
+            error:function(){
+
+            },
+            success:function(data){
+
+            },
+            });
+
+    }
+
+    var use = sessionStorage.getItem('use');
+    var use = getCookie("use");
+    var qx = getCookie("qx");
+    var Data_Value = "verify";
+    if(use !="" && qx !="" ){
+        ajaxfun(use,qx);
+    } else{
+        window.location.href="html/login.html";
+    }
+
+
+
+
+</script>
 </html>
