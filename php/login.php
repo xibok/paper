@@ -11,8 +11,8 @@ $result = mysql_query($sql);
 $row = mysql_fetch_array($result);
 
 if($row>0){
-    $use=utf8_encode($use);
-    $qx=utf8_encode($row["qx"]);
+    // $use=utf8_encode($use);
+    $qx=$row["qx"];
     echo '{"error":"0","errortype":"Login Success","id":"'.$use.'","qx":"'.$qx.'"}';
     setcookie("use", $use, time()+14400,"/paper");
     setcookie("qx", $qx, time()+14400,"/paper");

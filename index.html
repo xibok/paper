@@ -27,16 +27,12 @@
 
             <div class="col-md-9">
                 <ul class="list-group" id="Class-Capacity">
-                    <span class="list-group-item active" id="listTitle">我的帖子</span>
-                    
-                    <div class="list-group-item">
-                        <a   style="color:rgb(128, 128, 128)">
-                            <h4 class="list-group-item-heading" style="color:black">
-                                主论坛标题</h4>帖子标题
-                        </a> <a   style="float: right">编辑</a> 
-                        <a   style="float: right">申请精华贴&nbsp;</a>
-                        <p style="float: right;margin-right: 50px">
-                            浏览量:&nbsp;评论量:&nbsp;发表日期:</p>
+                    <span class="list-group-item active" id="listTitle">酒店管理系统</span>
+                    <div class=" " id ="listTitleview">
+
+
+
+                    </div>
                     </div>
                 </ul>
                 </div>
@@ -89,7 +85,7 @@ function ajaxfun(value1,value2){
                     }
                     document.getElementById("Navigation").innerHTML = LeftList;
                      }else{
-                        // window.location.href="html/login.html";
+                        window.location.href="html/login.html";
                      }  
         },
     });
@@ -102,16 +98,53 @@ function ajaxfun(value1,value2){
         id.setAttribute("class","active");
         document.getElementById("listTitle").innerText = id.innerText;
         listvalue = id.id;
+        var listtable,listth;
+        listtable ='<table class="table" id="listviewtable"><caption>房间</caption></table>'
+        
         $.ajax({
+
             type:"POST",
             url:"php/listvalue.php",
-            data:listvalue,
+            data:{listvalue},
             dataType:"json",
-            error:function(){
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus);
 
             },
             success:function(data){
+                if(data.error == 0){
+                    console.log(data);
+                    var json = data.name;
+                    // console.log(data.number[0][key]);
+                    document.getElementById("listTitleview").setAttribute("class","list-group-item");
+                    listtable ='<table class="table" id="listviewtable"><caption>房间</caption><thead><th>房号</th><th>价格</th><th>入住状态</th><th>清洁状态</th><th>房间类型</th></thead><thead id="tablethead"> </thead></table>';
+                    document.getElementById("listTitleview").innerHTML = listtable;
+                    var tableth = "",tabletb = "";
+                    floorVela =data.floor;
 
+                    for (let th = 0; th < floorVela.length; th++) {
+                        
+                        tableth = '</thead><th>'+th+'楼</th></thead>';
+                        numVela = floorVela[th].Roomnumber;
+                        // document.getElementById("tablethead").innerHTML =tableth;
+                        for (let i = 0; i < numVela.length; i++) {
+                            console.log(numVela[i].num);
+                            
+                        tabletd ='<tr><td>'+numVela[i].num+'</td><td>'+numVela[i].price+'</td><td>'+numVela[i].State+'</td><td>'+numVela[i].clean+'</td><tb>'+numVela[i].type+'</tb></th>';
+                        }
+                        document.getElementById("tablethead").innerHTML =tableth+tabletd;
+                    }
+
+
+                    
+                    // document.getElementById("listviewtableth"+data.floor).innerHTML =
+                    
+                }
+                
+
+            
             },
             });
 
